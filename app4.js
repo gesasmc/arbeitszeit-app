@@ -63,4 +63,3 @@ function printWorksheetWeek(){
 }
 $('csvWeek').onclick=()=>downloadCsv(false);$('csvAll').onclick=()=>downloadCsv(true);$('printWeek').onclick=printWorksheetWeek;
 setInterval(()=>{if(active&&$('runningTimer'))$('runningTimer').textContent=clock(activeElapsed());if(!active){const any=entries.some(e=>e.date===key()&&e.type==='work'&&recentRemaining(e)>0);if(any)renderStart()}},1000);
-}
