@@ -1,4 +1,3 @@
-{
 const K='arbeitszeit-app-v2', AKEY='arbeitszeit-app-active-v1', SKEY='arbeitszeit-app-settings-v1';
 const $=id=>document.getElementById(id), pad=n=>String(n).padStart(2,'0');
 const key=(d=new Date)=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
