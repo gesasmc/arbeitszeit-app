@@ -10,16 +10,14 @@
 <body>
 <div class="app">
   <div id="toast" class="toast" hidden></div>
-  <header class="topbar"><button class="round ghost">‹</button><h1 id="pageTitle">Aktuelle Einträge</h1><button class="round" id="moreTop">•••</button></header>
+  <header class="topbar"><button class="round ghost">‹</button><h1 id="pageTitle">Übersicht</h1><button class="round" id="moreTop">•••</button></header>
 
-  <section id="viewStart" class="view active">
+  <section id="viewOverview" class="view active">
     <div class="dateTitle" id="todayLabel"></div>
     <div id="activeArea"></div>
     <div id="startButtonArea" class="heroStart"><button class="startBtn" id="newEntryBtn">Zeit eintragen</button></div>
     <div id="recentArea"></div>
-  </section>
 
-  <section id="viewOverview" class="view">
     <div class="sectionTitle"><div><small>ÜBERSICHT</small><h2>Meine Woche</h2></div><small id="weekLabel"></small></div>
     <div class="weekNav"><button id="prevWeek">←</button><button class="wide" id="thisWeek">Diese Woche</button><button id="nextWeek">→</button></div>
     <div class="statsGrid"><div class="statCard primary"><small>Angerechnet</small><b id="weekTotal">0,00 h</b></div><div class="statCard"><small>Soll</small><b id="weekTarget">40,00 h</b></div><div class="statCard"><small>Plus/Minus</small><b id="weekDelta">0,00 h</b></div><div class="statCard"><small>Schlechtwetter</small><b id="weekBadWeather">0,00 h</b></div><div class="statCard"><small>Verdienst</small><b id="weekEarnings">0,00 €</b></div></div>
@@ -54,7 +52,7 @@
   </section>
 </div>
 
-<nav class="bottomNav"><button data-view="Start" class="active"><b>◷</b>Start</button><button data-view="Overview"><b>▦</b>Übersicht</button><button data-view="Calendar"><b>▣</b>Kalender</button><button data-view="More"><b>•••</b>Mehr</button></nav>
+<nav class="bottomNav"><button data-view="Overview" class="active"><b>▦</b>Übersicht</button><button data-view="Calendar"><b>▣</b>Kalender</button><button data-view="More"><b>•••</b>Mehr</button></nav>
 
 <section id="entrySheet" class="sheet" hidden>
   <div class="sheetTop"><button class="close" id="entryClose">×</button><h2>Eintrag</h2><button class="save" id="entrySave">Sichern</button></div>
