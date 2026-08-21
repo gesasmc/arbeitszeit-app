@@ -97,4 +97,5 @@ function printWorksheetWeek(){
 $('csvWeek').onclick=()=>downloadCsv(false);
 $('csvAll').onclick=()=>downloadCsv(true);
 $('printWeek').onclick=printWorksheetWeek;
+if($('viewMore')&&!$('appVersion'))$('viewMore').insertAdjacentHTML('beforeend','<div class="moreCard" id="appVersion"><div class="moreRow"><span>Version</span><b>1.2.1 Beta</b></div></div>');
 setInterval(()=>{if(active&&$('runningTimer'))$('runningTimer').textContent=clock(activeElapsed());if(!active){const any=entries.some(e=>e.date===key()&&e.type==='work'&&recentRemaining(e)>0);if(any)renderStart()}},1000);
