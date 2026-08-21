@@ -6,26 +6,21 @@ function worksheetTableRows(){const names=['Montag','Dienstag','Mittwoch','Donne
 function printWorksheetWeek(){const win=window.open('','_blank');if(!win){toast('Popup für PDF erlauben');return}const start=key(W),end=key(addDays(W,5)),from=pdfDateShort(start).slice(0,6),to=pdfDateShort(end).slice(0,6),yr=String(fromKey(start).getFullYear()).slice(-2);const html=`<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Arbeitszettel ${key(W)}</title><style>
 @page{size:A4 portrait;margin:0}
 *{box-sizing:border-box}
-html,body{margin:0;background:#dfe3e8;font-family:Arial,Helvetica,sans-serif;color:#111}
+html,body{margin:0;background:#e7e9ed;font-family:Arial,Helvetica,sans-serif;color:#111}
 body{display:flex;justify-content:center}
 .wrap{width:210mm;height:297mm;transform-origin:top center}
 .page{width:210mm;height:297mm;background:#fff;padding:12mm 13mm 10mm;position:relative;overflow:hidden}
-.header{height:53mm;display:grid;grid-template-columns:1fr 1px 1.08fr;column-gap:10mm}
-.title{font-size:20pt;font-weight:800;margin:0 0 16mm}
+.header{height:48mm}
+.title{font-size:22pt;font-weight:800;margin:0 0 12mm}
 .meta{font-size:10pt;line-height:1.7}
-.metaRow{display:flex;align-items:flex-end;gap:2mm}
+.metaRow{display:flex;align-items:flex-end;gap:2mm;margin-bottom:2mm}
 .metaLine{display:inline-block;border-bottom:.3mm solid #333;min-width:28mm;text-align:center;font-weight:700;line-height:1.1;padding-bottom:1mm}
-.metaLine.name{min-width:70mm;text-align:left;padding-left:2mm}
-.sep{background:#333;height:46mm;margin-top:0}
-.company{padding-top:0}
-.brand{font-size:28pt;font-weight:900;letter-spacing:-1.5mm;line-height:.9;margin:0}
-.brandSub{font-size:11pt;font-weight:700;margin:1mm 0 4mm}
-.contact{font-size:6.8pt;line-height:1.35;display:grid;grid-template-columns:1fr 1.25fr;gap:5mm}
-.sheet{border:.35mm solid #222;height:217mm}
+.metaLine.name{min-width:78mm;text-align:left;padding-left:2mm}
+.sheet{border:.35mm solid #222;height:222mm}
 .headrow{height:11mm;display:grid;grid-template-columns:8mm 18mm 22mm 1fr 14mm 14mm;border-bottom:.35mm solid #222;font-size:7.4pt;font-weight:700;text-align:center}
 .headrow>div{display:flex;align-items:center;justify-content:center;border-right:.25mm solid #222}
 .headrow>div:last-child{border-right:0}
-.dayrow{height:34.33mm;display:grid;grid-template-columns:8mm 18mm 22mm 1fr 14mm 14mm;border-bottom:.35mm solid #222;font-size:6.9pt}
+.dayrow{height:35.16mm;display:grid;grid-template-columns:8mm 18mm 22mm 1fr 14mm 14mm;border-bottom:.35mm solid #222;font-size:6.9pt}
 .dayrow:last-child{border-bottom:0}
 .dayrow>div{border-right:.25mm solid #222}
 .dayrow>div:last-child{border-right:0}
@@ -38,9 +33,9 @@ body{display:flex;justify-content:center}
 .workline.bad{justify-content:flex-end;font-weight:700;padding-right:2mm}
 .singlecell .workline,.totalcell .workline{justify-content:center;padding:0}
 .workline.total{font-weight:700}
-.bottomTotal{position:absolute;right:13mm;bottom:5mm;font-size:8pt;font-weight:700}
+.bottomTotal{position:absolute;right:13mm;bottom:4.5mm;font-size:8pt;font-weight:700}
 .bottomTotal span{display:inline-block;width:28mm;border-bottom:.3mm solid #222;margin-left:3mm;transform:translateY(-1mm)}
 @media screen{body{padding:8px 0 20px}.wrap{box-shadow:0 4px 22px rgba(0,0,0,.18)}}
 @media print{html,body{width:210mm;height:297mm;background:#fff;overflow:hidden}body{display:block}.wrap{transform:none!important;width:210mm!important;height:297mm!important}.page{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
-</style></head><body><div class="wrap"><div class="page"><div class="header"><div><div class="title">Arbeitszettel</div><div class="meta"><div class="metaRow">vom <span class="metaLine">${esc(from)}</span> bis <span class="metaLine">${esc(to)}</span> 20 <span class="metaLine" style="min-width:9mm">${esc(yr)}</span></div><div class="metaRow">für <span class="metaLine name">Rodenbach</span></div></div></div><div class="sep"></div><div class="company"><div class="brand">DRIES</div><div class="brandSub">Bedachungen GmbH</div><div class="contact"><div>Europastraße 9<br>65385 Rüdesheim<br>Tel. 0 67 22 / 905 10<br>Fax 0 67 22 / 905 18</div><div>Mail:<br>info@dries-bedachungen.de<br>Internet:<br>www.dries-bedachungen.de</div></div></div></div><div class="sheet"><div class="headrow"><div></div><div>Datum</div><div>Bei wem<br>gearbeitet</div><div>Art der Arbeit</div><div>Einzel-<br>Std.</div><div>Gesamt-<br>Std.</div></div>${worksheetTableRows()}</div><div class="bottomTotal">Gesamt:<span></span></div></div></div><script>(function(){const wrap=document.querySelector('.wrap');function fit(){if(matchMedia('print').matches)return;const s=Math.min(1,(innerWidth-16)/wrap.offsetWidth);wrap.style.transform='scale('+s+')';wrap.style.height=(297*s)+'mm'}addEventListener('resize',fit);fit();setTimeout(()=>window.print(),250)})()<\/script></body></html>`;win.document.open();win.document.write(html);win.document.close()}
-$('csvWeek').onclick=()=>downloadCsv(false);$('csvAll').onclick=()=>downloadCsv(true);$('printWeek').onclick=printWorksheetWeek;if($('viewMore')&&!$('appVersion'))$('viewMore').insertAdjacentHTML('beforeend','<div class="moreCard" id="appVersion"><div class="moreRow"><span>Version</span><b>1.3 Beta</b></div></div>');setInterval(()=>{if(active&&$('runningTimer'))$('runningTimer').textContent=clock(activeElapsed());if(!active){const any=entries.some(e=>e.date===key()&&e.type==='work'&&recentRemaining(e)>0);if(any)renderStart()}},1000);
+</style></head><body><div class="wrap"><div class="page"><div class="header"><div class="title">Arbeitszettel</div><div class="meta"><div class="metaRow">vom <span class="metaLine">${esc(from)}</span> bis <span class="metaLine">${esc(to)}</span> 20 <span class="metaLine" style="min-width:9mm">${esc(yr)}</span></div><div class="metaRow">für <span class="metaLine name">Rodenbach</span></div></div></div><div class="sheet"><div class="headrow"><div></div><div>Datum</div><div>Bei wem<br>gearbeitet</div><div>Art der Arbeit</div><div>Einzel-<br>Std.</div><div>Gesamt-<br>Std.</div></div>${worksheetTableRows()}</div><div class="bottomTotal">Gesamt:<span></span></div></div></div><script>(function(){const wrap=document.querySelector('.wrap');function fit(){if(matchMedia('print').matches)return;const s=Math.min(1,(innerWidth-16)/wrap.offsetWidth);wrap.style.transform='scale('+s+')';wrap.style.height=(297*s)+'mm'}addEventListener('resize',fit);fit();setTimeout(()=>window.print(),250)})()<\/script></body></html>`;win.document.open();win.document.write(html);win.document.close()}
+$('csvWeek').onclick=()=>downloadCsv(false);$('csvAll').onclick=()=>downloadCsv(true);$('printWeek').onclick=printWorksheetWeek;if($('viewMore')&&!$('appVersion'))$('viewMore').insertAdjacentHTML('beforeend','<div class="moreCard" id="appVersion"><div class="moreRow"><span>Version</span><b>1.3.1 Beta</b></div></div>');setInterval(()=>{if(active&&$('runningTimer'))$('runningTimer').textContent=clock(activeElapsed());if(!active){const any=entries.some(e=>e.date===key()&&e.type==='work'&&recentRemaining(e)>0);if(any)renderStart()}},1000);
