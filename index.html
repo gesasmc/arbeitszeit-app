@@ -26,8 +26,8 @@
     <div id="startButtonArea" class="heroStart"><button class="startBtn" id="newEntryBtn">Zeit eintragen</button></div>
     <div id="recentArea"></div>
 
-    <div class="sectionTitle"><div><small>ÜBERSICHT</small><h2>Meine Woche</h2></div><small id="weekLabel"></small></div>
-    <div class="weekNav"><button id="prevWeek">←</button><button class="wide" id="thisWeek">Diese Woche</button><button id="nextWeek">→</button></div>
+    <div class="sectionTitle"><div><small>ÜBERSICHT</small><h2>Meine Woche</h2></div><button id="thisWeek" class="currentWeekBtn">Aktuelle Woche</button></div>
+    <div class="weekNav"><button id="prevWeek">←</button><button class="wide" id="weekLabel">KW</button><button id="nextWeek">→</button></div>
     <div class="statsGrid"><div class="statCard primary"><small>Angerechnet</small><b id="weekTotal">0,00 h</b></div><div class="statCard"><small>Soll</small><b id="weekTarget">40,00 h</b></div><div class="statCard"><small>Plus/Minus</small><b id="weekDelta">0,00 h</b></div><div class="statCard"><small>Schlechtwetter</small><b id="weekBadWeather">0,00 h</b></div><div class="statCard"><small>Verdienst</small><b id="weekEarnings">0,00 €</b></div></div>
     <div id="weekRows" class="panel weekRows"></div>
   </section>
@@ -57,6 +57,7 @@
     <div class="sectionTitle"><div><small>EINSTELLUNGEN & EXPORT</small><h2>Mehr</h2></div></div>
     <div class="moreCard"><h3>Soll-Arbeitszeit</h3><div class="moreRow"><span>Gültig ab</span><input id="targetFrom" type="date"></div><div class="moreRow"><span>Stunden / Woche</span><input id="targetHours" type="number" min="0" max="80" step="0.01" inputmode="decimal"></div><button class="moreBtn" id="saveTargetRule">Sollzeit ab Datum speichern</button><div id="targetHistory" class="historyList"></div><div class="moreRow"><span>Anzeige</span><b>Dezimalstunden</b></div></div>
     <div class="moreCard"><h3>Export</h3><button class="moreBtn" id="csvWeek">Wochenbericht als CSV</button><button class="moreBtn" id="csvAll">Alle Einträge als CSV</button><button class="moreBtn" id="printWeek">Woche / PDF</button></div>
+    <div class="moreCard"><h3>Version</h3><div class="moreRow"><span>Arbeitszeit-App</span><b>1.4.3 Beta</b></div></div>
   </section>
 </div>
 
@@ -90,6 +91,6 @@
   </div>
 </div>
 
-<script defer src="app1.js"></script><script defer src="app2.js"></script><script defer src="app3.js"></script><script defer src="app4.js"></script><script defer src="app5.js"></script><script defer src="app6.js"></script><script defer src="app7.js"></script>
+<script defer src="app1.js"></script><script defer src="app2.js"></script><script defer src="app3.js"></script><script defer src="app4.js"></script><script defer src="app5.js"></script><script defer src="app6.js"></script>
 </body>
 </html>
