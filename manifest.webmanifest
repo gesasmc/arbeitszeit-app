@@ -8,10 +8,10 @@
   "theme_color": "#f2f5f9",
   "icons": [
     {
-      "src": "/app-icon.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "src": "/app-icon.jpg?v=139",
+      "sizes": "180x180",
+      "type": "image/jpeg",
+      "purpose": "any"
     }
   ]
 }
