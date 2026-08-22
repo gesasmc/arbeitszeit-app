@@ -1,0 +1,1 @@
+AtWork import accepts .txt and .csv. Text files are parsed as delimited tabular exports (semicolon, tab, or comma).
