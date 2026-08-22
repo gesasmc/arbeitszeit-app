@@ -43,7 +43,8 @@
     const items=[];
     for(const [date,list] of groups){
       if(list.length===1){items.push(list[0]);continue}
-      const startMin=Math.min(...list.map(e=>mins(e.start))),endMin=Math.max(...list.map(e=>mins(e.end));
+      const startMin=Math.min(...list.map(e=>mins(e.start)));
+      const endMin=Math.max(...list.map(e=>mins(e.end)));
       const net=list.reduce((s,e)=>s+Math.max(0,mins(e.end)-mins(e.start)-(Number(e.breakMinutes)||0)),0);
       const merged={date,type:'work',start:timeStr(startMin),end:timeStr(endMin),breakMinutes:Math.max(0,endMin-startMin-net),wage:0,note:list.map(e=>e.note).filter(Boolean).join('\n---\n')};
       const bw=list.reduce((s,e)=>s+Math.round((Number(e.badWeatherHours)||0)*60),0);if(bw)merged.badWeatherHours=bw/60;
