@@ -1,14 +1,16 @@
 {
+  "id": "/",
   "name": "Arbeitszeit",
   "short_name": "Arbeitszeit",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#f2f5f9",
   "theme_color": "#f2f5f9",
   "icons": [
     {
-      "src": "/app-icon-v3.png?v=140",
+      "src": "/apple-touch-icon.png",
       "sizes": "180x180",
       "type": "image/png",
       "purpose": "any"
