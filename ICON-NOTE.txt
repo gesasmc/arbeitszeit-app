@@ -1,1 +1,1 @@
-Temporary marker: icon-only change preparation. Do not modify app logic.
+Backup before isolated iOS icon change. App logic and worksheet code untouched.
