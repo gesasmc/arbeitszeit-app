@@ -1,0 +1,1 @@
+Temporary marker: icon-only change preparation. Do not modify app logic.
