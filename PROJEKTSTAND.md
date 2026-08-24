@@ -1,7 +1,7 @@
 # Arbeitszeit-App – Projektstand / Übergabe
 
-Letzte Pflege: 22.08.2026
-Aktueller Stand: Version 1.4.4 Beta
+Letzte Pflege: 24.08.2026
+Aktueller Stand: Version 1.4.5 Beta
 Live-App: https://arbeitszeit-app-5kv.pages.dev/
 Repository: gesasmc/arbeitszeit-app
 
@@ -28,6 +28,7 @@ Mobile Arbeitszeit-App, hauptsächlich für iPhone/PWA. Die App dient zur Erfass
 - Button „Aktuelle Woche“, der direkt zur laufenden Woche springt.
 - Kalenderansicht.
 - Arbeitszeit-Einträge mit Datum, Beginn, Ende, Pause und Notiz.
+- Pause wird beim Einstellen in **5-Minuten-Schritten als Minutenwert** angezeigt (`0 Min.`, `5 Min.`, `10 Min.` ...); intern bleibt die Berechnung in Minuten und die Auswertung erfolgt weiterhin als Dezimalstunden.
 - Schlechtwetter-Erfassung.
 - Stundenlohn / Verdienst.
 - Urlaub, Krankheit und Feiertage.
@@ -65,7 +66,7 @@ https://arbeitszeit-app-5kv.pages.dev/
 Das GitHub-Repository ist die Quelle für den Stand. Änderungen auf `main` können das Deployment auslösen. Nach Änderungen deshalb Live-Version kontrollieren.
 
 ## Versionsstand
-Aktuell dokumentierter Stand: **1.4.4 Beta**.
+Aktuell dokumentierter Stand: **1.4.5 Beta**.
 
 Bei jeder zukünftigen Version diese Datei ebenfalls aktualisieren: Versionsnummer, neue Funktionen, wichtige Entscheidungen und bekannte Probleme.
 
@@ -78,4 +79,4 @@ Wenn der Nutzer später sagt: „Mach bei der Arbeitszeit-App weiter“, dann:
 5. Erst dann die gewünschte Änderung umsetzen.
 
 ## Aktueller Status
-Die App wird zunächst im Alltag getestet. Stand 22.08.2026 gibt es keine weitere offene gewünschte Funktion. Neue Auffälligkeiten sollen auf Basis dieses funktionierenden Stands behoben werden.
+Die App wird im Alltag getestet. Stand 24.08.2026 ist die Pausenauswahl auf Minutenanzeige im 5-Minuten-Takt umgestellt; die Berechnung bleibt in Dezimalstunden. Neue Auffälligkeiten sollen auf Basis dieses funktionierenden Stands behoben werden.
