@@ -13,7 +13,7 @@
   function backupKeys(){const arr=[];for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k&&k.startsWith(PREFIX))arr.push(k)}return arr.sort()}
   function currentSnapshot(){
     return {
-      version:'1.4.2 Beta',
+      version:'1.4.5 Beta',
       createdAt:new Date().toISOString(),
       entries:Array.isArray(window.entries)?window.entries:[],
       active:window.active||null,
@@ -61,7 +61,7 @@
     document.getElementById('backupNowBtn').onclick=()=>{makeBackup('manual');if(typeof toast==='function')toast('Backup erstellt')};
     document.getElementById('backupDownloadBtn').onclick=downloadLatest;
     renderStatus();maybeWeeklyBackup();
-    const v=document.querySelector('#appVersion b');if(v)v.textContent='1.4.2 Beta';
+    const v=document.querySelector('#appVersion b');if(v)v.textContent='1.4.5 Beta';
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(install,0));else setTimeout(install,0);
 })();
