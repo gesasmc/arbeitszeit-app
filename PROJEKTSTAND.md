@@ -1,7 +1,7 @@
 # Arbeitszeit-App – Projektstand / Übergabe
 
-Letzte Pflege: 24.08.2026
-Aktueller Stand: Version 1.4.5 Beta
+Letzte Pflege: 27.08.2026
+Aktueller Stand: Version 1.4.8 Beta
 Live-App: https://arbeitszeit-app-5kv.pages.dev/
 Repository: gesasmc/arbeitszeit-app
 
@@ -32,9 +32,11 @@ Mobile Arbeitszeit-App, hauptsächlich für iPhone/PWA. Die App dient zur Erfass
 - Schlechtwetter-Erfassung.
 - Stundenlohn / Verdienst.
 - Urlaub, Krankheit und Feiertage.
+- **Urlaubskonto pro Jahr** unter „Mehr“: Jahresurlaub und Resturlaub aus dem Vorjahr können je Jahr hinterlegt werden. Genommener Urlaub wird automatisch aus den Urlaubseinträgen berechnet. Resturlaub vom Vorjahr wird zuerst verbraucht; angezeigt werden genommener Urlaub, verbliebener Vorjahresurlaub und Resturlaub gesamt.
+- **Stundenweiser Urlaub**: Beim Urlaubseintrag kann optional „Stundenweise Urlaub“ aktiviert und eine Stundenzahl eingetragen werden. Die Gutschrift entspricht dann genau diesen Urlaubsstunden; für das Urlaubskonto wird der entsprechende Tagesanteil berechnet.
 - Soll-Arbeitszeit mit zeitlicher Gültigkeit.
 - CSV-Export / Wochenbericht.
-- Arbeitszettel/PDF mit Download-Funktion.
+- Arbeitszettel/PDF mit Download-Funktion. Dateiname enthält `Rodenbach` und den jeweiligen Wochenzeitraum.
 - AtWork-Import für den konkreten Text/CSV-Export des Nutzers. Das Format enthält u. a. `Beginn`, `Ende`, `Dauer`, `Notiz`; Datum steckt in Beginn/Ende. Vor Import wird gesichert und vorhandene Tage werden nicht überschrieben.
 - Optionale wöchentliche lokale Backups. Wenn aktiviert, wird spätestens nach 7 Tagen beim nächsten Öffnen ein Backup erzeugt; die letzten 8 werden behalten. Zusätzlich manuelles Backup und Download des letzten Backups.
 - Hessische gesetzliche Feiertage werden automatisch berechnet/eingetragen. Dazu gehören Neujahr, Karfreitag, Ostermontag, 1. Mai, Christi Himmelfahrt, Pfingstmontag, Fronleichnam, Tag der Deutschen Einheit sowie 1. und 2. Weihnachtsfeiertag. Keine automatischen Einträge für Heiligabend, Silvester, Rosenmontag etc.
@@ -57,6 +59,7 @@ Die App nutzt derzeit Browser/localStorage. Relevante Keys im Code sind unter an
 - `arbeitszeit-app-v2` – Einträge
 - `arbeitszeit-app-active-v1` – aktiver Eintrag
 - `arbeitszeit-app-settings-v1` – Einstellungen
+- `arbeitszeit-app-vacation-settings-v1` – Urlaubskonto nach Jahr
 Zusätzlich existieren Keys für Import- und Wochen-Backups. Bei Änderungen an Datenstrukturen unbedingt Abwärtskompatibilität und vorhandene Nutzerdaten beachten.
 
 ## Deployment
@@ -66,7 +69,7 @@ https://arbeitszeit-app-5kv.pages.dev/
 Das GitHub-Repository ist die Quelle für den Stand. Änderungen auf `main` können das Deployment auslösen. Nach Änderungen deshalb Live-Version kontrollieren.
 
 ## Versionsstand
-Aktuell dokumentierter Stand: **1.4.5 Beta**.
+Aktuell dokumentierter Stand: **1.4.8 Beta**.
 
 Bei jeder zukünftigen Version diese Datei ebenfalls aktualisieren: Versionsnummer, neue Funktionen, wichtige Entscheidungen und bekannte Probleme.
 
@@ -79,4 +82,4 @@ Wenn der Nutzer später sagt: „Mach bei der Arbeitszeit-App weiter“, dann:
 5. Erst dann die gewünschte Änderung umsetzen.
 
 ## Aktueller Status
-Die App wird im Alltag getestet. Stand 24.08.2026 ist die Pausenauswahl auf Minutenanzeige im 5-Minuten-Takt umgestellt; die Berechnung bleibt in Dezimalstunden. Neue Auffälligkeiten sollen auf Basis dieses funktionierenden Stands behoben werden.
+Die App wird weiter im Alltag getestet. Stand 27.08.2026 wurde das Urlaubskonto mit Jahresurlaub, Resturlaub aus dem Vorjahr und stundenweisem Urlaub ergänzt. Neue Auffälligkeiten sollen auf Basis dieses funktionierenden Stands behoben werden.
