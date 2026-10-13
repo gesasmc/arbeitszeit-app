@@ -1,5 +1,5 @@
 (function(){
-  const VERSION='1.5.1 Beta';
+  const VERSION='1.5.2 Beta';
   const ROW=44;
   const CYCLES=7;
   const CENTER_CYCLE=3;
