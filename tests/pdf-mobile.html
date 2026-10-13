@@ -22,6 +22,15 @@ function check(frame,label,expectedViewport){
   if(!d.querySelector('.clientcell').innerText.includes('Kunde B'))throw Error(label+': zweite Kundenzeile fehlt');
   return label+': PASS, Vorschau '+p.width.toFixed(1)+' × '+p.height.toFixed(1)+' px, kein seitlicher Überlauf';
 }
+async function resizeAndCheck(frame,width,label){
+  frame.style.width=width+'px';
+  for(let i=0;i<30;i++){
+    await delay(100);
+    const w=frame.contentWindow,p=w.document.querySelector('.page').getBoundingClientRect();
+    if(Math.abs(w.innerWidth-width)<1&&Math.abs(p.width-Math.min(width-16,210*96/25.4))<1)return check(frame,label,width);
+  }
+  return check(frame,label,width);
+}
 app.addEventListener('load',async()=>{
   try{
     const w=app.contentWindow;
@@ -35,9 +44,9 @@ app.addEventListener('load',async()=>{
       for(let i=0;i<100&&(!frame.contentWindow.jspdf||typeof frame.contentWindow.downloadPdf!=='function');i++)await delay(50);
     }
     const results=[check(portrait,'390 px',390),check(landscape,'844 px',844)];
-    portrait.style.width='320px';await delay(100);results.push(check(portrait,'320 px',320));
-    portrait.style.width='844px';await delay(100);results.push(check(portrait,'Drehen auf 844 px',844));
-    portrait.style.width='390px';await delay(100);results.push(check(portrait,'Zurück auf 390 px',390));
+    results.push(await resizeAndCheck(portrait,320,'320 px'));
+    results.push(await resizeAndCheck(portrait,844,'Drehen auf 844 px'));
+    results.push(await resizeAndCheck(portrait,390,'Zurück auf 390 px'));
     status.textContent=results.join('\n')+'\nDownload: mit dem PDF-Button im Arbeitszettel prüfen.';
   }catch(error){status.textContent='FAIL: '+error.message;console.error(error)}
 });
