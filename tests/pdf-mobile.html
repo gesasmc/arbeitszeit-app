@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="de"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PDF-Regression: Hochformat und Download</title>
+<style>body{font:16px system-ui;background:#f2f5f9;margin:16px}h1{font-size:22px}.screens{display:flex;gap:20px;align-items:flex-start;flex-wrap:wrap}iframe{border:1px solid #bbc;border-radius:8px;background:white;height:650px;max-width:100%}#app{position:absolute;width:1px;height:1px;visibility:hidden}#result{white-space:pre-wrap;font-weight:600}button{font:inherit;padding:10px 16px}</style>
+<h1>PDF-Regression mit Beispieldaten</h1>
+<p id="result">Die echte App und der Arbeitszettel werden geladen …</p>
+<div class="screens"><section><h2>Hochformat, 390 px</h2><iframe id="portrait" title="Arbeitszettel Hochformat" style="width:390px"></iframe></section><section><h2>Querformat, 844 px</h2><iframe id="landscape" title="Arbeitszettel Querformat" style="width:844px"></iframe></section></div>
+<iframe id="app" title="App-Test" src="../"></iframe>
+<script>
+const app=document.getElementById('app');
+const status=document.getElementById('result');
+const delay=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+function check(frame,label){
+  const w=frame.contentWindow,d=w.document,p=d.querySelector('.page').getBoundingClientRect(),wrap=d.querySelector('.wrap').getBoundingClientRect();
+  if(typeof w.downloadPdf!=='function'||!w.jspdf)throw Error(label+': PDF-Download nicht bereit');
+  if(d.documentElement.scrollWidth>w.innerWidth+1)throw Error(label+': horizontaler Überlauf');
+  if(p.left<7||p.right>w.innerWidth-7)throw Error(label+': A4 passt nicht vollständig auf den Bildschirm');
+  if(Math.abs(p.width/p.height-210/297)>.001)throw Error(label+': Seitenverhältnis verzerrt');
+  if(Math.abs(wrap.height-p.height)>1)throw Error(label+': falsche Höhe der Vorschau');
+  if(!d.querySelector('.clientcell').innerText.includes('Kunde B'))throw Error(label+': zweite Kundenzeile fehlt');
+  return label+': PASS, Vorschau '+p.width.toFixed(1)+' × '+p.height.toFixed(1)+' px, kein seitlicher Überlauf';
+}
+app.addEventListener('load',async()=>{
+  try{
+    const w=app.contentWindow;
+    for(let i=0;i<100&&typeof w.printWorksheetWeek!=='function';i++)await delay(50);
+    // Volatile example data only: never call store() or change existing localStorage entries.
+    w.eval("W=weekStart(fromKey('2026-10-12'));entries=[{date:'2026-10-12',type:'work',start:'07:00',end:'16:00',breakMinutes:30,workplace:'Kunde A\\nKunde B',workDescription:'Dach reparieren\\nRinne montieren',wage:23.5}]");
+    const portrait=document.getElementById('portrait'),landscape=document.getElementById('landscape');
+    for(const frame of [portrait,landscape]){
+      const old=w.open;w.open=()=>frame.contentWindow;
+      try{w.printWorksheetWeek()}finally{w.open=old}
+      for(let i=0;i<100&&(!frame.contentWindow.jspdf||typeof frame.contentWindow.downloadPdf!=='function');i++)await delay(50);
+    }
+    const results=[check(portrait,'390 px'),check(landscape,'844 px')];
+    portrait.style.width='320px';await delay(100);results.push(check(portrait,'320 px'));
+    portrait.style.width='844px';await delay(100);results.push(check(portrait,'Drehen auf 844 px'));
+    portrait.style.width='390px';await delay(100);results.push(check(portrait,'Zurück auf 390 px'));
+    status.textContent=results.join('\n')+'\nDownload: mit dem PDF-Button im Arbeitszettel prüfen.';
+  }catch(error){status.textContent='FAIL: '+error.message;console.error(error)}
+});
+</script></html>

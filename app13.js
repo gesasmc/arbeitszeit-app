@@ -1,5 +1,5 @@
 (function(){
-  const VERSION='1.5.2 Beta';
+  const VERSION='1.5.3 Beta';
   function monthEarningsForWeek(){
     const ref=W instanceof Date?W:new Date();
     const y=ref.getFullYear(),m=ref.getMonth();
@@ -23,3 +23,4 @@
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(install,0));else setTimeout(install,0);
 })();
+

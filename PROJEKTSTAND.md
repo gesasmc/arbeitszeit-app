@@ -1,7 +1,7 @@
 # Arbeitszeit-App – Projektstand / Übergabe
 
-Letzte Pflege: 27.08.2026
-Aktueller Stand: Version 1.4.8 Beta
+Letzte Pflege: 13.10.2026
+Aktueller Stand: Version 1.5.3 Beta
 Live-App: https://arbeitszeit-app-5kv.pages.dev/
 Repository: gesasmc/arbeitszeit-app
 
@@ -69,7 +69,7 @@ https://arbeitszeit-app-5kv.pages.dev/
 Das GitHub-Repository ist die Quelle für den Stand. Änderungen auf `main` können das Deployment auslösen. Nach Änderungen deshalb Live-Version kontrollieren.
 
 ## Versionsstand
-Aktuell dokumentierter Stand: **1.4.8 Beta**.
+Aktuell dokumentierter Stand: **1.5.3 Beta**.
 
 Bei jeder zukünftigen Version diese Datei ebenfalls aktualisieren: Versionsnummer, neue Funktionen, wichtige Entscheidungen und bekannte Probleme.
 
@@ -83,3 +83,13 @@ Wenn der Nutzer später sagt: „Mach bei der Arbeitszeit-App weiter“, dann:
 
 ## Aktueller Status
 Die App wird weiter im Alltag getestet. Stand 27.08.2026 wurde das Urlaubskonto mit Jahresurlaub, Resturlaub aus dem Vorjahr und stundenweisem Urlaub ergänzt. Neue Auffälligkeiten sollen auf Basis dieses funktionierenden Stands behoben werden.
+
+
+## Stand 13.10.2026 – Version 1.5.3 Beta
+- Basis: 1.5.2 Beta, mit getrennten Eingaben „Bei wem gearbeitet“ und „Art der Arbeit“, mehrzeiligen Kundenangaben und Monatsverdienst.
+- Behoben: Ein falsch maskierter Zeilenumbruch im erzeugten JavaScript des Arbeitszettels führte zu einem Syntaxfehler. Dadurch waren Bildschirm-Anpassung und PDF-Download ohne Funktion.
+- Die A4-Vorschau passt sich jetzt über einen eigenen Container proportional an die verfügbare Breite an, auch nach Änderung der Ausrichtung. Der Container hat die tatsächliche skalierte Höhe.
+- jsPDF 2.5.1 liegt unter vendor/ im Projekt und wird vom gleichen Ursprung geladen.
+- Der Download wartet auf den bestehenden Speichern-/Teilen-Ablauf, bevor der Button wieder freigegeben wird. Bestehendes PDF-Layout und Datenformat werden beibehalten.
+- Vorheriger Stand gesichert in backup-before-pdf-mobile-v1.5.3.
+- Automatische Regression: node tests/pdf-export.test.cjs (Syntax des tatsächlich erzeugten Popup-Skripts, Hochformat-/Querformat-Skalierung, echte PDF-Erzeugung, Dateiname und Zeilenumbrüche).
