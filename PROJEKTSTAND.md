@@ -82,7 +82,7 @@ Wenn der Nutzer später sagt: „Mach bei der Arbeitszeit-App weiter“, dann:
 5. Erst dann die gewünschte Änderung umsetzen.
 
 ## Aktueller Status
-Die App wird weiter im Alltag getestet. Stand 27.08.2026 wurde das Urlaubskonto mit Jahresurlaub, Resturlaub aus dem Vorjahr und stundenweisem Urlaub ergänzt. Neue Auffälligkeiten sollen auf Basis dieses funktionierenden Stands behoben werden.
+Stand 13.10.2026: Version 1.5.3 Beta behebt die zu breite PDF-Vorschau und den inaktiven Download-Button von 1.5.2. Der bisherige Arbeitszettel bleibt die Layout-Referenz. Änderungen an anderen Funktionen sind aktuell nicht beauftragt.
 
 
 ## Stand 13.10.2026 – Version 1.5.3 Beta
@@ -93,3 +93,11 @@ Die App wird weiter im Alltag getestet. Stand 27.08.2026 wurde das Urlaubskonto 
 - Der Download wartet auf den bestehenden Speichern-/Teilen-Ablauf, bevor der Button wieder freigegeben wird. Bestehendes PDF-Layout und Datenformat werden beibehalten.
 - Vorheriger Stand gesichert in backup-before-pdf-mobile-v1.5.3.
 - Automatische Regression: node tests/pdf-export.test.cjs (Syntax des tatsächlich erzeugten Popup-Skripts, Hochformat-/Querformat-Skalierung, echte PDF-Erzeugung, Dateiname und Zeilenumbrüche).
+
+
+## Prüfung von 1.5.3
+- Erzeugtes Popup-JavaScript ohne Syntaxfehler; node tests/pdf-export.test.cjs erfolgreich.
+- Echte PDF: eine A4-Seite, 595,28 × 841,89 pt, beide Kunden und beide Tätigkeitszeilen enthalten, Dateiname mit Rodenbach und Wochenzeitraum.
+- Browserprüfung mit Beispieldaten über tests/pdf-mobile.html: 320 px, 390 px, 844 px sowie Drehen 390 → 844 → 390 px erfolgreich; vollständige proportionale Vorschau ohne horizontalen Überlauf.
+- Download aus dem tatsächlichen separaten Arbeitszettel-Fenster im Browser erfolgreich.
+- Direkt auf Marcos iPhone/Safari wurde die Version noch nicht durch den Nutzer bestätigt. Die vorhandene iOS-Speichern-/Teilen-Funktion wird weiterhin verwendet.
