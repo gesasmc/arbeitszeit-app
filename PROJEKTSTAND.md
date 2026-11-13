@@ -1,7 +1,7 @@
 # Arbeitszeit-App – Projektstand / Übergabe
 
-Letzte Pflege: 13.10.2026
-Aktueller Stand: Version 1.5.3 Beta
+Letzte Pflege: 13.11.2026
+Aktueller Stand: Version 1.5.4 Beta
 Live-App: https://arbeitszeit-app-5kv.pages.dev/
 Repository: gesasmc/arbeitszeit-app
 
@@ -69,7 +69,7 @@ https://arbeitszeit-app-5kv.pages.dev/
 Das GitHub-Repository ist die Quelle für den Stand. Änderungen auf `main` können das Deployment auslösen. Nach Änderungen deshalb Live-Version kontrollieren.
 
 ## Versionsstand
-Aktuell dokumentierter Stand: **1.5.3 Beta**.
+Aktuell dokumentierter Stand: **1.5.4 Beta**.
 
 Bei jeder zukünftigen Version diese Datei ebenfalls aktualisieren: Versionsnummer, neue Funktionen, wichtige Entscheidungen und bekannte Probleme.
 
@@ -82,7 +82,7 @@ Wenn der Nutzer später sagt: „Mach bei der Arbeitszeit-App weiter“, dann:
 5. Erst dann die gewünschte Änderung umsetzen.
 
 ## Aktueller Status
-Stand 13.10.2026: Version 1.5.3 Beta behebt die zu breite PDF-Vorschau und den inaktiven Download-Button von 1.5.2. Der bisherige Arbeitszettel bleibt die Layout-Referenz. Änderungen an anderen Funktionen sind aktuell nicht beauftragt.
+Stand 13.11.2026: Version 1.5.4 Beta ergänzt gemeinsame Urlaubszeiträume und korrigiert die Wochenendeinträge beim Anlegen im Kalender. Die PDF-Korrektur aus 1.5.3 wurde von Marco mit „Gut geklappt“ bestätigt und bleibt die funktionierende Referenz.
 
 
 ## Stand 13.10.2026 – Version 1.5.3 Beta
@@ -101,3 +101,16 @@ Stand 13.10.2026: Version 1.5.3 Beta behebt die zu breite PDF-Vorschau und den i
 - Browserprüfung mit Beispieldaten über tests/pdf-mobile.html: 320 px, 390 px, 844 px sowie Drehen 390 → 844 → 390 px erfolgreich; vollständige proportionale Vorschau ohne horizontalen Überlauf.
 - Download aus dem tatsächlichen separaten Arbeitszettel-Fenster im Browser erfolgreich.
 - Direkt auf Marcos iPhone/Safari wurde die Version noch nicht durch den Nutzer bestätigt. Die vorhandene iOS-Speichern-/Teilen-Funktion wird weiterhin verwendet.
+
+
+
+## Stand 13.11.2026 – Version 1.5.4 Beta
+- Auftrag: Urlaub von/bis ohne Wochenende eintragen; z. B. „Sommer 2027“ als zusammengehörigen Zeitraum speichern und komplett löschen können. Marco verlangt vor Änderungen ausdrücklich ein Backup.
+- Quellcode-Backup: backup-before-vacation-groups-v1.5.4, aus dem funktionierenden main von 1.5.3 (a0b6bb01b45ac80e979b74b3e37014f755c5b65d).
+- Ursache: Der separate Kalenderweg saveAbsence trug Wochenenden noch ein; der Editorweg übersprang sie bereits. Beide neuen Urlaubswege verwenden nun dieselbe Logik. Bereits belegte Tage, gesetzliche Feiertage und ein aktiver Arbeitseintrag werden übersprungen.
+- Jeder neue ganztägige Urlaub erhält vacationGroupId, vacationGroupName, vacationGroupFrom und vacationGroupTo an seinen täglichen Einträgen. Gleiche Bezeichnungen werden durch eindeutige IDs getrennt. Bestehende Alt-Einträge werden nicht automatisch zusammengefasst oder gelöscht.
+- Im Kalender stehen die „Urlaubszeiträume“ mit Name, Zeitraum, Urlaubstagezahl und „Gesamten Urlaub löschen“. Beim Bearbeiten eines zugehörigen Tages gibt es denselben Gruppen-Löschbutton zusätzlich zum einzelnen Löschen.
+- Vor Gruppenlöschung wird die betroffene Gruppe unter arbeitszeit-app-vacation-delete-backup-v1 gesichert. „Letzten gelöschten Urlaub wiederherstellen“ stellt freie Tage wieder her und überschreibt keine inzwischen belegten Tage. Bei Sicherungs-/Speicherfehlern bleibt der Urlaub erhalten.
+- Eine neue Eingabe übernimmt niemals das Bis-Datum des vorherigen Urlaubs. Vorschau zeigt die einzutragenden Urlaubstage. Das Urlaubskonto wird nach Speichern, Löschen und Wiederherstellen direkt aktualisiert.
+- Stundenweiser Urlaub sowie Krankheit/Feiertage verwenden ihre bisherigen Regeln. Zeiterfassung und PDF-Code sind unverändert.
+- Tests: TZ=Europe/Berlin node tests/vacation-logic.test.cjs. Zusätzlich tests/vacation.spec.cjs für Playwright-Browsertests (lokaler Testserver auf Port 8765, Playwright und Chromium erforderlich).
