@@ -114,3 +114,10 @@ Stand 13.11.2026: Version 1.5.4 Beta ergänzt gemeinsame Urlaubszeiträume und k
 - Eine neue Eingabe übernimmt niemals das Bis-Datum des vorherigen Urlaubs. Vorschau zeigt die einzutragenden Urlaubstage. Das Urlaubskonto wird nach Speichern, Löschen und Wiederherstellen direkt aktualisiert.
 - Stundenweiser Urlaub sowie Krankheit/Feiertage verwenden ihre bisherigen Regeln. Zeiterfassung und PDF-Code sind unverändert.
 - Tests: TZ=Europe/Berlin node tests/vacation-logic.test.cjs. Zusätzlich tests/vacation.spec.cjs für Playwright-Browsertests (lokaler Testserver auf Port 8765, Playwright und Chromium erforderlich).
+
+
+## Prüfung von 1.5.4
+- Isolierte Tests bestanden: beide Speicherwege ohne Wochenenden, Überlappungen mit Arbeit/aktivem Eintrag, Urlaubskonto, gleichnamige getrennte Gruppen, Abbruch, Gruppenlöschung und Wiederherstellen, Feiertage, Jahreswechsel, Zeitumstellung und Speicherfehler.
+- In der Browser-Vorschau beide Formulare geprüft: 10.–25.07.2027 ergibt 10 Urlaubstage. Eine neue Urlaubseingabe setzt Von/Bis auf denselben Tag zurück. Keine App-JavaScript-Fehler beobachtet.
+- Der automatische Freigabecheck hat persistente Testbuchungen in der Browser-Vorschau abgelehnt. Speichern/Löschen wurde deshalb ausschließlich mit isolierten Testdaten geprüft; keine Testurlaube in Marcos produktiven Daten angelegt.
+- Der lokale Playwright-Lauf ist in dieser Ausführungsumgebung durch gesperrte Chromium-Sockets blockiert. Der Test ist für eine Umgebung mit Browserzugriff unter tests/vacation.spec.cjs enthalten; er wurde hier nicht als bestanden gewertet.
