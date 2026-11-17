@@ -134,3 +134,9 @@ Stand 17.11.2026: Version 1.5.5 Beta ergänzt „Ganzer Tag“ bei Schlechtwette
 - Modul app14.js ergänzt die Oberfläche und das Speichern nach den bisherigen Erweiterungen. Die bestehenden Rechen-/Darstellungsfunktionen enthalten gezielte Abzweigungen für den neuen Tagestyp.
 - Prüfungen: TZ=Europe/Berlin node tests/full-day-weather.test.cjs; TZ=Europe/Berlin node tests/vacation-logic.test.cjs; node tests/pdf-export.test.cjs (jetzt auch eine echte PDF mit 8,25-h-Schlechtwettertag).
 - Browser-Speichertests bleiben gemäß vorheriger automatischer Ablehnung ausgenommen. Die Speicherlogik wird mit isolierten Testdaten geprüft; die Formularbedienung wird ohne Speichern in der Vorschau geprüft.
+
+## Prüfung von 1.5.5
+- Isolierte Tests für neue abgeschlossene Tage ohne Uhrzeiten, Wiederöffnen, Ersetzen/Abbruch, automatische Pausen, Wochen-/Kalender-/CSV-/PDF-Werte, gezieltes Beenden aktiver Einträge, Schutz anderer Tage sowie Sicherungs-/Speicherfehler bestanden.
+- Urlaubsregression und bestehender echter PDF-Download-/Layouttest bestanden. In der erzeugten PDF ist der neue 8,25-h-Schlechtwettertag enthalten.
+- Browser-Vorschau geprüft, ohne Testdaten zu speichern: Schlechtwetter → Ganzer Tag zeigt 8,25 h netto und 30 Min. übernommene Standardpause, Beginn/Ende sind unsichtbar. Nach Abwählen erscheinen die normalen Zeitfelder wieder. Eine gewählte Pause von 45 Min. wird ebenfalls automatisch berücksichtigt, die Netto-Gutschrift bleibt 8,25 h.
+- Direktes iPhone-/Safari-Feedback zur neuen Funktion steht noch aus.
