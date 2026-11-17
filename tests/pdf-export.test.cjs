@@ -21,7 +21,7 @@ const source = {
 source.window = source;
 vm.createContext(source);
 for(const file of ['app1.js','app4.js','app5.js','app9.js'])vm.runInContext(fs.readFileSync(path.join(root,file),'utf8'),source,{filename:file});
-vm.runInContext("W=weekStart(fromKey('2026-10-12'));entries=[{date:'2026-10-12',type:'work',start:'07:00',end:'16:00',breakMinutes:30,workplace:'Kunde A\\nKunde B',workDescription:'Dach reparieren\\nRinne montieren',wage:23.5},{date:'2026-10-13',type:'work',start:'07:00',end:'15:00',breakMinutes:30,workplace:'Kunde C',workDescription:'Wartung',badWeatherStart:'13:00',badWeatherEnd:'15:00'},{date:'2026-10-14',type:'vacation',name:'Urlaub'}]",source);
+vm.runInContext("W=weekStart(fromKey('2026-10-12'));entries=[{date:'2026-10-12',type:'work',start:'07:00',end:'16:00',breakMinutes:30,workplace:'Kunde A\\nKunde B',workDescription:'Dach reparieren\\nRinne montieren',wage:23.5},{date:'2026-10-13',type:'work',start:'07:00',end:'15:00',breakMinutes:30,workplace:'Kunde C',workDescription:'Wartung',badWeatherStart:'13:00',badWeatherEnd:'15:00'},{date:'2026-10-14',type:'vacation',name:'Urlaub'},{date:'2026-10-15',type:'work',start:'',end:'',badWeatherFullDay:true,badWeatherNetMinutes:495,breakMinutes:30}]",source);
 source.printWorksheetWeek();
 assert(html.includes('Kunde A<br>Kunde B'), 'Real customer line breaks must render as separate lines');
 assert(html.includes('Dach reparieren</div><div class="workline">Rinne montieren'), 'Work description line breaks must be preserved');
@@ -68,6 +68,7 @@ assert.equal(typeof visualResize,'function');
   const bytes=Buffer.from(await shared.files[0].arrayBuffer());
   assert(bytes.toString('ascii',0,5)==='%PDF-');
   assert(bytes.length>5000);
+  assert(bytes.includes(Buffer.from('(8,25)')), 'The actual PDF must contain the full weather day');
   fs.writeFileSync(path.resolve(root,'../pdf-test-output.pdf'),bytes);
   releaseShare();await saving;
   assert.equal(button.disabled,false);
@@ -76,3 +77,4 @@ assert.equal(typeof visualResize,'function');
   assert.equal(storageWrites,0,'Opening/downloading a worksheet must not change stored entries');
   console.log('PASS: popup JavaScript syntax, four screen widths, rotation, multiple customers, real PDF generation, filename, async sharing and unchanged entry storage');
 })().catch(error=>{console.error(error);process.exitCode=1});
+

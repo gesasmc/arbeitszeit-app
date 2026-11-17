@@ -1,5 +1,5 @@
 (function(){
-  const VERSION='1.5.4 Beta';
+  const VERSION='1.5.5 Beta';
   function monthEarningsForWeek(){
     const ref=W instanceof Date?W:new Date();
     const y=ref.getFullYear(),m=ref.getMonth();

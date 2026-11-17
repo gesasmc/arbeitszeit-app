@@ -11,3 +11,5 @@
 @media print{.bottomNav,.topbar,.heroStart,.calendarPanel,.moreCard,.runningCard,.info{display:none!important}.view{display:block!important}.app{max-width:none;padding:0}.panel{box-shadow:none;border:1px solid #bbb;margin:0}.sheet,.modal{display:none!important}}
 
 .vacationHint{font-size:13px;line-height:1.5;color:#667085;margin:10px 0;overflow-wrap:anywhere}.vacationEditorHint{margin:12px 18px}.vacationPeriod{padding:14px 0;border-bottom:1px solid var(--line);overflow-wrap:anywhere}.vacationPeriod strong{display:block;font-size:16px}.vacationPeriod p{font-size:13px;line-height:1.5;color:#667085;margin:6px 0}.vacationPeriodDelete{color:#b91c1c;background:#ffecec}#entryToDateRow[hidden],#vacationGroupList[hidden],#vacationGroupEditor[hidden],#entryVacationHint[hidden],#absenceVacationHint[hidden]{display:none}
+
+#badWeatherFullDayRow[hidden],#badWeatherFullDayInfo[hidden],.fullDayWeatherHidden{display:none!important}.weatherDayInfo{margin:10px 18px;font-size:14px;line-height:1.5;color:#52627a}

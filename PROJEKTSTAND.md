@@ -1,7 +1,7 @@
 # Arbeitszeit-App – Projektstand / Übergabe
 
-Letzte Pflege: 13.11.2026
-Aktueller Stand: Version 1.5.4 Beta
+Letzte Pflege: 17.11.2026
+Aktueller Stand: Version 1.5.5 Beta
 Live-App: https://arbeitszeit-app-5kv.pages.dev/
 Repository: gesasmc/arbeitszeit-app
 
@@ -69,7 +69,7 @@ https://arbeitszeit-app-5kv.pages.dev/
 Das GitHub-Repository ist die Quelle für den Stand. Änderungen auf `main` können das Deployment auslösen. Nach Änderungen deshalb Live-Version kontrollieren.
 
 ## Versionsstand
-Aktuell dokumentierter Stand: **1.5.4 Beta**.
+Aktuell dokumentierter Stand: **1.5.5 Beta**.
 
 Bei jeder zukünftigen Version diese Datei ebenfalls aktualisieren: Versionsnummer, neue Funktionen, wichtige Entscheidungen und bekannte Probleme.
 
@@ -82,7 +82,7 @@ Wenn der Nutzer später sagt: „Mach bei der Arbeitszeit-App weiter“, dann:
 5. Erst dann die gewünschte Änderung umsetzen.
 
 ## Aktueller Status
-Stand 13.11.2026: Version 1.5.4 Beta ergänzt gemeinsame Urlaubszeiträume und korrigiert die Wochenendeinträge beim Anlegen im Kalender. Die PDF-Korrektur aus 1.5.3 wurde von Marco mit „Gut geklappt“ bestätigt und bleibt die funktionierende Referenz.
+Stand 17.11.2026: Version 1.5.5 Beta ergänzt „Ganzer Tag“ bei Schlechtwetter. Ein solcher Tag wird mit 8,25 h netto abgeschlossen, ohne Start-/Endzeit. Urlaubszeiträume aus 1.5.4 und das PDF-Layout bleiben die Referenz.
 
 
 ## Stand 13.10.2026 – Version 1.5.3 Beta
@@ -121,3 +121,16 @@ Stand 13.11.2026: Version 1.5.4 Beta ergänzt gemeinsame Urlaubszeiträume und k
 - In der Browser-Vorschau beide Formulare geprüft: 10.–25.07.2027 ergibt 10 Urlaubstage. Eine neue Urlaubseingabe setzt Von/Bis auf denselben Tag zurück. Keine App-JavaScript-Fehler beobachtet.
 - Der automatische Freigabecheck hat persistente Testbuchungen in der Browser-Vorschau abgelehnt. Speichern/Löschen wurde deshalb ausschließlich mit isolierten Testdaten geprüft; keine Testurlaube in Marcos produktiven Daten angelegt.
 - Der lokale Playwright-Lauf ist in dieser Ausführungsumgebung durch gesperrte Chromium-Sockets blockiert. Der Test ist für eine Umgebung mit Browserzugriff unter tests/vacation.spec.cjs enthalten; er wurde hier nicht als bestanden gewertet.
+
+
+## Stand 17.11.2026 – Version 1.5.5 Beta
+- Auftrag: Schlechtwetter für den ganzen Tag antippen, 8,25 Stunden unter Berücksichtigung der Pause, direkt abschließen ohne Start- und Endzeit.
+- Backup: backup-before-full-day-weather-v1.5.5 vom main 9860d1357a5915631c2e7b4c9aba2bcdefb3e005 (1.5.4).
+- Bedienung: Arbeit → Schlechtwetter einschalten → Ganzer Tag → Sichern. Zeit- und Pausenfelder werden ausgeblendet; die Zusammenfassung zeigt 8,25 h netto und die bereits berücksichtigte Pause. Der Datensatz erhält completedAt und wird niemals als laufender Eintrag gestartet.
+- Annahme ausdrücklich im Chat genannt: 8,25 h sind die Nettozeit nach der Pause. Die eingestellte beziehungsweise zuletzt verwendete Pause wird übernommen, bei fehlender Historie 30 Minuten. Der Bruttowert ist Nettozeit plus Pausenminuten, sodass die Pause nicht zweimal abgezogen wird.
+- Modell: type work, leere start/end, badWeatherFullDay true, badWeatherNetMinutes 495, badWeatherGrossMinutes 495 + breakMinutes. Die Erkennung erfordert type work und leere Zeiten; normales Bearbeiten setzt den Marker zurück.
+- Die Wochen-Gutschrift und Schlechtwetterzeit zählen jeweils 495 Minuten. Tatsächliche Arbeitszeit ist 0; eine gesonderte Schlechtwettervergütung wurde nicht angefragt und wird nicht erfunden. Übersicht/Kalender/CSV zeigen „Schlechtwetter – ganzer Tag“ statt leerer Zeiten. Im bestehenden Arbeitszettel wird nur die Schlechtwetterzeile mit 8,25 h befüllt; das Layout ist unverändert.
+- Beim Ersetzen eines vorhandenen/laufenden Eintrags wird eine Bestätigung verlangt. Vor dem Schreiben liegt ein vollständiger Datenschnappschuss unter arbeitszeit-app-full-day-weather-backup-v1. Bei Fehlern bleiben die bisherigen Einträge und ein aktiver Tag erhalten; beim gezielten Abschließen wird der ausgewählte aktive Eintrag entfernt. Andere laufende/belegte Tage werden geschützt.
+- Modul app14.js ergänzt die Oberfläche und das Speichern nach den bisherigen Erweiterungen. Die bestehenden Rechen-/Darstellungsfunktionen enthalten gezielte Abzweigungen für den neuen Tagestyp.
+- Prüfungen: TZ=Europe/Berlin node tests/full-day-weather.test.cjs; TZ=Europe/Berlin node tests/vacation-logic.test.cjs; node tests/pdf-export.test.cjs (jetzt auch eine echte PDF mit 8,25-h-Schlechtwettertag).
+- Browser-Speichertests bleiben gemäß vorheriger automatischer Ablehnung ausgenommen. Die Speicherlogik wird mit isolierten Testdaten geprüft; die Formularbedienung wird ohne Speichern in der Vorschau geprüft.
